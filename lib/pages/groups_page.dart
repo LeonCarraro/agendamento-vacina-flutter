@@ -8,6 +8,7 @@ import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
+import 'package:agendamento_vacina/pages/home_page.dart';
 
 class GroupsPage extends StatefulWidget {
   GroupsPage({Key key}) : super(key: key);
@@ -33,9 +34,11 @@ class _GroupsPageState extends State<GroupsPage> {
           child: Column(
             children: [
               SizedBox(height: 30,),
-              CustomWidget.Back(title: "Início", onTap: () => print("Início"),),
+              CustomWidget.Back(title: "Início", onTap: () => {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))
+              }),
               SizedBox(height: 30,),
-              CustomWidget.Step(title: "Passo 01 de 03"),
+              CustomWidget.Step(title: "Passo 02 de 04"),
               SizedBox(height: 10,),
               CustomWidget.PageTitle(title: "Escolha o grupo pertencente a sua idade"),
               SizedBox(height: 30,),

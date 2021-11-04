@@ -1,13 +1,15 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:brasil_fields/brasil_fields.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/theme.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
+import 'package:agendamento_vacina/pages/home_page.dart';
 import 'package:agendamento_vacina/pages/groups_page.dart';
-import 'package:flutter/services.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({Key key}) : super(key: key);
@@ -28,10 +30,10 @@ class _SignupPageState extends State<SignupPage> {
             children: [
               SizedBox(height: 30,),
               CustomWidget.Back(title: "Voltar", onTap: () => {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage()))
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))
               },),
               SizedBox(height: 30,),
-              CustomWidget.Step(title: "Passo 02 de 03"),
+              CustomWidget.Step(title: "Passo 01 de 04"),
               SizedBox(height: 10,),
               CustomWidget.PageTitle(title: "Realize o pré cadastro"),
               SizedBox(height: 30,),
@@ -42,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
                   textCapitalization: TextCapitalization.words,
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Container(
                 child: TextFormField(
                   decoration: AppTheme().textInputDecoration("E-mail"),
@@ -56,7 +58,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Container(
                 child: TextFormField(
                   decoration: AppTheme().textInputDecoration("CPF"),
@@ -67,7 +69,7 @@ class _SignupPageState extends State<SignupPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Container(
                 child: TextFormField(
                   decoration: AppTheme().textInputDecoration("Celular"),
@@ -81,7 +83,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Container(
                 child: TextFormField(
                   obscureText: true,
@@ -93,6 +95,40 @@ class _SignupPageState extends State<SignupPage> {
 
                     return null;
                   },
+                ),
+              ),
+              SizedBox(height: 20,),
+              Container(
+                child: TextFormField(
+                  obscureText: true,
+                  decoration: AppTheme().textInputDecoration("Confirmação de senha"),
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return "Confirme a sua senha!";
+                    }
+
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(height: 30,),
+              Container(
+                child: ElevatedButton(
+                  style: AppTheme().buttonStyle(),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    child: Text(
+                      "Registrar".toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  onPressed: () => {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage()))
+                  }
                 ),
               ),
             ],
