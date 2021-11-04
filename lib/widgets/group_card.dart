@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
+import 'package:agendamento_vacina/pages/signup_page.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
@@ -49,7 +50,9 @@ class GroupCard extends StatelessWidget {
               Icons.arrow_forward_ios,
               size: 18,
             ),
-            onPressed: () => {},
+            onPressed: () => {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupPage()))
+            },
           )
         ],
       )

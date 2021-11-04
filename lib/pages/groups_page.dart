@@ -1,35 +1,27 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
-import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class GroupsPage extends StatefulWidget {
+  GroupsPage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _GroupsPageState createState() => _GroupsPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-
-  List data = [];
-
-  @override
-  void initState() {
-    super.initState();
-    initData();
-  }
-
-  void initData() {
-    DefaultAssetBundle.of(context).loadString("json/group_data.json").then((response) => {
-      data = json.decode(response)
-    });
-  }
+class _GroupsPageState extends State<GroupsPage> {
+  Future findGroups() async => 
+      await Future.delayed(Duration(seconds: 1), () async {
+        String response = await rootBundle.loadString('json/group_data.json');
+        return json.decode(response);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +32,8 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
           child: Column(
             children: [
-              CustomWidget.Back(title: "Inicio"),
+              SizedBox(height: 30,),
+              CustomWidget.Back(title: "Início", onTap: () => print("Início"),),
               SizedBox(height: 30,),
               CustomWidget.Step(title: "Passo 01 de 03"),
               SizedBox(height: 10,),
@@ -88,16 +81,32 @@ class _HomePageState extends State<HomePage> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: data.length,
-                    itemBuilder: (_, index) {
-                      return CustomWidget.GroupCard(
-                        title: data[index]["title"],
-                        description: data[index]["description"],
-                      );
-                    },
+                  FutureBuilder(
+                    future: findGroups(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (_, index) {
+                            return CustomWidget.GroupCard(
+                              title: snapshot.data[index]["title"],
+                              description: snapshot.data[index]["description"],
+                            );
+                          },
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            SizedBox(height: 50,),
+                            Center(
+                              child: CircularProgressIndicator()
+                            )
+                          ]
+                        );
+                      }
+                    }
                   ),
                 ]
               ),
