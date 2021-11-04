@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
-import 'package:agendamento_vacina/widgets/groud_card.dart';
+import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -37,51 +40,11 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    size: 20,
-                    color: AppColor.homePageIcons,
-                  ),
-                  Text(
-                    "Voltar",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColor.homePageSubtitle,
-                      fontWeight: FontWeight.w700
-                    ),
-                  )
-                ],
-              ),
+              CustomWidget.Back(title: "Inicio"),
               SizedBox(height: 30,),
-              Row(
-                children: [
-                  Text(
-                    "Passo 01 de 03",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColor.setsColor,
-                      fontWeight: FontWeight.w500
-                    ),
-                  )
-                ],
-              ),
+              CustomWidget.Step(title: "Passo 01 de 03"),
               SizedBox(height: 10,),
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      "Escolha o grupo pertencente a sua idade",
-                      style: TextStyle(
-                      fontSize: 20,
-                      color: AppColor.homePageTitle,
-                      fontWeight: FontWeight.w700
-                      ),
-                    )
-                  ),
-                ],
-              ),
+              CustomWidget.PageTitle(title: "Escolha o grupo pertencente a sua idade"),
               SizedBox(height: 30,),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -130,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     itemBuilder: (_, index) {
-                      return GroupCard(
+                      return CustomWidget.GroupCard(
                         title: data[index]["title"],
                         description: data[index]["description"],
                       );
