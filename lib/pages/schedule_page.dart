@@ -5,13 +5,18 @@ import 'package:flutter/services.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/pages/health_posts_page.dart';
+import 'package:agendamento_vacina/pages/home_page.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 
 class SchedulePage extends StatefulWidget {
-  SchedulePage({Key key}) : super(key: key);
+  final String cpf;
+  final int groupId;
+  final int healthPostId;
+
+  SchedulePage({Key key, @required this.cpf, @required this.groupId, @required this.healthPostId}) : super(key: key);
 
   @override
   _SchedulePageState createState() => _SchedulePageState();
@@ -23,6 +28,29 @@ class _SchedulePageState extends State<SchedulePage> {
         String response = await rootBundle.loadString('json/schedule_data.json');
         return json.decode(response);
       });
+
+    HomePage schedule(int scheduleId) {
+      /*try {
+        final response = await http.post("http://192.168.100.8:8080/v1/api/login", body: loginModel.toJson(), headers: {
+          "Accept": "application/json; charset=utf-8",
+          "Content-type":"application/json; charset=utf-8"
+        });
+
+        if (response.statusCode == 403) {
+          setState(() {
+            errorMsg = jsonDecode(response.body)['message'];
+          });
+        } else if (response.statusCode == 200) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: jsonDecode(response.body)['cpf'])));
+        }
+      } catch (e) {
+        setState(() {
+          errorMsg = "Houve um problema no servidor!";
+        });
+      }*/
+
+      return HomePage();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +66,7 @@ class _SchedulePageState extends State<SchedulePage> {
                   children: [
                     SizedBox(height: 30,),
                     CustomWidget.Back(title: "Voltar", onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HealthPostsPage()))
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HealthPostsPage(cpf: widget.cpf, groupId: widget.groupId,)))
                     }),
                     SizedBox(height: 30,),
                     CustomWidget.Step(title: "Passo 04 de 04"),
@@ -126,7 +154,7 @@ class _SchedulePageState extends State<SchedulePage> {
                                     title: snapshot.data[index]["dayOfWeek"] + "  -  " + snapshot.data[index]["dayOfMonth"],
                                     description: snapshot.data[index]["schedule"],
                                     extraLine: false,
-                                    nextPage: null,
+                                    nextPage: schedule(snapshot.data[index]["id"]),
                                   );
                                 },
                               );

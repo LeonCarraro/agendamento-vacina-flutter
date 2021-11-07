@@ -19,6 +19,8 @@ class SignupPage extends StatefulWidget {
   _SignupPageState createState() => _SignupPageState();
 }
 
+// TODO: Corrigir cpf: null na linha 146
+
 class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
@@ -143,7 +145,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   onPressed: () => {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage()))
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: null)))
                   }
                 ),
               ),

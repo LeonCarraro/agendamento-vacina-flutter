@@ -1,25 +1,31 @@
 [
     {
+        "id": 1,
         "title": "U.B.S Cruzeiro \"Helcio Monte\"",
         "address": "Avenida Noêmia da Silveira Pupo Latorre,  - Vila Cruzeiro"
     },
     {
+        "id": 2,
         "title": "U.B.S Tapera Grande \"Luiz Emmanuel Bianchi\"",
         "address": "Estrada Municipal s/nº - Rodovia Itatiba - Louveira Tapera Grande"
     },
     {
+        "id": 3,
         "title": "U.B.S Morro Azul \"Eliza Bulgarelli Buzetto\"",
         "address": "Estrada Municipal Antenor Soranz, s/n - Morro Azul, ao lado da EMEF Maria Aparecida Tomazine"
     },
     {
+        "id": 4,
         "title": "U.B.S Bairro Dos Pires \"Dr Antonio Fernando Lazzari Fornari\"",
         "address": "Rodovia Alkindar Monteiro Junqueira, Km 32 Bairro do Pires"
     },
     {
+        "id": 5,
         "title": "U.B.S  Pinhal  \"Katia Kibbi\"",
         "address": "Alameda das Goiabeiras, 02 - Loteamento São Jorge - Pinhal"
     },
     {
+        "id": 6,
         "title": "U.B.S  Central \"Irma Padovani Camargo\"",
         "address": "Rua Professor Brito nº 01 - Centro"
     }

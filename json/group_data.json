@@ -1,25 +1,31 @@
 [
     {
+        "id": 1,
         "title": "Terceira dose",
         "description": "Pessoas com comorbidades"
     },
     {
+        "id": 2,
         "title": "Terceira dose",
         "description": "Pessoas com 85 anos ou mais"
     },
     {
+        "id": 3,
         "title": "Segunda dose",
         "description": "Pessoas entre 60 e 84 anos"
     },
     {
+        "id": 4,
         "title": "Segunda dose",
         "description": "Pessoas entre 40 e 59 anos"
     },
     {
+        "id": 5,
         "title": "Primeira dose",
         "description": "Pessoas com 19 anos ou mais"
     },
     {
+        "id": 6,
         "title": "Primeira dose",
         "description": "Pessoas com 18 anos ou menos"
     }

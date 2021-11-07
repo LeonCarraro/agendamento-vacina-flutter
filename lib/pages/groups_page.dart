@@ -12,7 +12,9 @@ import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 
 class GroupsPage extends StatefulWidget {
-  GroupsPage({Key key}) : super(key: key);
+  final String cpf;
+
+  GroupsPage({Key key, @required this.cpf}) : super(key: key);
 
   @override
   _GroupsPageState createState() => _GroupsPageState();
@@ -98,7 +100,7 @@ class _GroupsPageState extends State<GroupsPage> {
                               title: snapshot.data[index]["title"],
                               description: snapshot.data[index]["description"],
                               extraLine: false,
-                              nextPage: HealthPostsPage(),
+                              nextPage: HealthPostsPage(cpf: widget.cpf, groupId: snapshot.data[index]["id"],),
                             );
                           },
                         );

@@ -13,7 +13,10 @@ import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 
 class HealthPostsPage extends StatefulWidget {
-  HealthPostsPage({Key key}) : super(key: key);
+  final String cpf;
+  final int groupId;
+
+  HealthPostsPage({Key key, @required this.cpf, @required this.groupId}) : super(key: key);
 
   @override
   _HealthPostsPageState createState() => _HealthPostsPageState();
@@ -37,7 +40,7 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
             children: [
               SizedBox(height: 30,),
               CustomWidget.Back(title: "Voltar", onTap: () => {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage()))
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: widget.cpf)))
               }),
               SizedBox(height: 30,),
               CustomWidget.Step(title: "Passo 03 de 04"),
@@ -71,7 +74,7 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
                               title: snapshot.data[index]["title"],
                               description: snapshot.data[index]["address"],
                               extraLine: true,
-                              nextPage: SchedulePage(),
+                              nextPage: SchedulePage(cpf: widget.cpf, groupId: widget.groupId, healthPostId: snapshot.data[index]["id"],),
                             );
                           },
                         );

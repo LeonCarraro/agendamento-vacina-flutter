@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   final loginModel = new Login();
 
   final formKey = GlobalKey<FormState>();
+  
   String errorMsg;
 
   Future<void> login() async {
@@ -37,8 +38,8 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           errorMsg = jsonDecode(response.body)['message'];
         });
-      } else if (response.statusCode == 204) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage()));
+      } else if (response.statusCode == 200) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: jsonDecode(response.body)['cpf'])));
       }
     } catch (e) {
       setState(() {
