@@ -64,6 +64,7 @@ class GroupCard extends StatelessWidget {
                   text: "$description",
                   style: TextStyle(
                     color: AppColor.homePageTitle,
+                    height: 2
                   ),
                 )
               ]

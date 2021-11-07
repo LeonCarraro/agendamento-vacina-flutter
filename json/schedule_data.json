@@ -1,0 +1,32 @@
+[
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "08/11/2021",
+        "schedule": "10:00"
+    },
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "08/11/2021",
+        "schedule": "11:00"
+    },
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "08/11/2021",
+        "schedule": "12:00"
+    },
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "08/11/2021",
+        "schedule": "13:00"
+    },
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "09/11/2021",
+        "schedule": "11:00"
+    },
+    {
+        "dayOfWeek": "Segunda feira",
+        "dayOfMonth": "09/11/2021",
+        "schedule": "13:00"
+    }
+]
