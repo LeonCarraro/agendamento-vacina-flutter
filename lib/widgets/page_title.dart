@@ -7,7 +7,7 @@ class PageTitle extends StatelessWidget {
 
   const PageTitle({
     Key key,
-    this.title
+    @required this.title
   }) : super(key: key);
 
   @override

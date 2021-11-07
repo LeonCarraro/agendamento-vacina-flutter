@@ -8,8 +8,8 @@ class Back extends StatelessWidget {
 
   const Back({
     Key key,
-    this.title,
-    this.onTap
+    @required this.title,
+    @required this.onTap
   }) : super(key: key);
 
   @override

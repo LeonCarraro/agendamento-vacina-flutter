@@ -7,7 +7,7 @@ class Step extends StatelessWidget {
 
   const Step({
     Key key,
-    this.title
+    @required this.title
   }) : super(key: key);
 
   @override

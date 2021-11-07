@@ -8,8 +8,8 @@ class GroupCard extends StatelessWidget {
 
   const GroupCard({
     Key key,
-    this.title,
-    this.description,
+    @required this.title,
+    @required this.description,
   }) : super(key: key);
 
   @override

@@ -1,3 +1,4 @@
+import 'package:agendamento_vacina/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -50,7 +51,7 @@ class _SignupPageState extends State<SignupPage> {
                   decoration: AppTheme().textInputDecoration("E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   validator: (val) {
-                    if((val.isNotEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
+                    if((val.isNotEmpty) && !RegExp(AppRegex.email).hasMatch(val)){
                       return "Digite um e-mail valido!";
                     }
 
@@ -75,7 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                   decoration: AppTheme().textInputDecoration("Celular"),
                   keyboardType: TextInputType.phone,
                   validator: (val) {
-                    if((val.isNotEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
+                    if((val.isNotEmpty) && !RegExp(AppRegex.phone).hasMatch(val)){
                       return "Digite um numero de celular valido!";
                     }
 
