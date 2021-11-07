@@ -1,4 +1,3 @@
-import 'package:agendamento_vacina/utils/regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,11 +5,12 @@ import 'package:brasil_fields/brasil_fields.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/theme.dart';
+import 'package:agendamento_vacina/utils/regex.dart';
+import 'package:agendamento_vacina/pages/home_page.dart';
+import 'package:agendamento_vacina/pages/groups_page.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
-import 'package:agendamento_vacina/pages/home_page.dart';
-import 'package:agendamento_vacina/pages/groups_page.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({Key key}) : super(key: key);
@@ -73,8 +73,23 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(height: 20,),
               Container(
                 child: TextFormField(
+                  decoration: AppTheme().textInputDecoration("Data de nascimento"),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    DataInputFormatter(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
+              Container(
+                child: TextFormField(
                   decoration: AppTheme().textInputDecoration("Celular"),
                   keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    TelefoneInputFormatter(),
+                  ],
                   validator: (val) {
                     if((val.isNotEmpty) && !RegExp(AppRegex.phone).hasMatch(val)){
                       return "Digite um numero de celular valido!";
@@ -132,6 +147,7 @@ class _SignupPageState extends State<SignupPage> {
                   }
                 ),
               ),
+              SizedBox(height: 20,),
             ],
           ),
         ),

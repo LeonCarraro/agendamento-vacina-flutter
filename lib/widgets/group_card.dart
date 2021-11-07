@@ -5,11 +5,15 @@ import 'package:agendamento_vacina/utils/colors.dart';
 class GroupCard extends StatelessWidget {
   final String title;
   final String description;
+  final bool extraLine;
+  final StatefulWidget nextPage;
 
   const GroupCard({
     Key key,
     @required this.title,
     @required this.description,
+    @required this.extraLine,
+    @required this.nextPage
   }) : super(key: key);
 
   @override
@@ -23,7 +27,29 @@ class GroupCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          RichText(
+          if (extraLine) Flexible(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "$title\n\n",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: AppColor.homePageTitle,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "$description",
+                    style: TextStyle(
+                      color: AppColor.homePageTitle,
+                    ),
+                  )
+                ]
+              )
+            ),
+          ),
+          if (!extraLine) RichText(
             text: TextSpan(
               children: [
                 TextSpan(
@@ -43,14 +69,14 @@ class GroupCard extends StatelessWidget {
               ]
             )
           ),
-          Spacer(),
+          if (!extraLine) Spacer(),
           IconButton(
             icon: Icon(
               Icons.arrow_forward_ios,
               size: 18,
             ),
             onPressed: () => {
-              print('Escolheu um grupo de idade')
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => nextPage))
             },
           )
         ],

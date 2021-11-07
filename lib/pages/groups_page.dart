@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:agendamento_vacina/pages/health_posts_page.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
+import 'package:agendamento_vacina/pages/home_page.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
-import 'package:agendamento_vacina/pages/home_page.dart';
 
 class GroupsPage extends StatefulWidget {
   GroupsPage({Key key}) : super(key: key);
@@ -80,7 +81,7 @@ class _GroupsPageState extends State<GroupsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 15,),
+              SizedBox(height: 10,),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -96,6 +97,8 @@ class _GroupsPageState extends State<GroupsPage> {
                             return CustomWidget.GroupCard(
                               title: snapshot.data[index]["title"],
                               description: snapshot.data[index]["description"],
+                              extraLine: false,
+                              nextPage: HealthPostsPage(),
                             );
                           },
                         );
