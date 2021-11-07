@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColor{
   static Color gradientFirst = const Color(0xff0f17ad);
   static Color gradientSecond = const Color(0xFF6985e8);
@@ -19,4 +21,5 @@ class AppColor{
   static Color loopColor = const Color(0xFF6d8dea);
   static Color setsColor = const Color(0xFF9999a9);
   static Color circuitsColor = const Color(0xFF2f2f51);
+  static Color error = Colors.redAccent;
 }

@@ -9,6 +9,8 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.0
   brasil_fields: ^0.6.1
+  cpf_cnpj_validator: ^1.0.5
+  http: ^0.12.2
   flutter:
     sdk: flutter
 
