@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/pages/health_posts_page.dart';
 import 'package:agendamento_vacina/pages/success_sheduling_page.dart';
+import 'package:agendamento_vacina/models/schedule.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
@@ -29,28 +31,28 @@ class _SchedulePageState extends State<SchedulePage> {
         return json.decode(response);
       });
 
-    SuccessSchedulingPage schedule(int scheduleId) {
-      /*try {
-        final response = await http.post("http://192.168.100.8:8080/v1/api/login", body: loginModel.toJson(), headers: {
-          "Accept": "application/json; charset=utf-8",
-          "Content-type":"application/json; charset=utf-8"
-        });
+  void schedule(int scheduleId) async {
+    final Schedule schedule = new Schedule(widget.cpf, widget.groupId, widget.healthPostId, scheduleId);
 
-        if (response.statusCode == 403) {
-          setState(() {
-            errorMsg = jsonDecode(response.body)['message'];
-          });
-        } else if (response.statusCode == 200) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: jsonDecode(response.body)['cpf'])));
-        }
-      } catch (e) {
+    try {
+      final response = await http.post("http://192.168.100.8:8080/v1/api/schedules", body: schedule.toJson(), headers: {
+        "Accept": "application/json; charset=utf-8",
+        "Content-type":"application/json; charset=utf-8"
+      });
+
+      if (response.statusCode == 403) {
         setState(() {
-          errorMsg = "Houve um problema no servidor!";
+          // TODO: Implementar tratamento de erro
         });
-      }*/
-
-      return SuccessSchedulingPage();
+      } else if (response.statusCode == 201 || response.statusCode == 404) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuccessSchedulingPage()));
+      }
+    } catch (e) {
+      setState(() {
+          // TODO: Implementar tratamento de erro
+      });
     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +156,9 @@ class _SchedulePageState extends State<SchedulePage> {
                                     title: snapshot.data[index]["dayOfWeek"] + "  -  " + snapshot.data[index]["dayOfMonth"],
                                     description: snapshot.data[index]["schedule"],
                                     extraLine: false,
-                                    nextPage: schedule(snapshot.data[index]["id"]),
+                                    validation: () => {
+                                      schedule(snapshot.data[index]["id"])
+                                    }
                                   );
                                 },
                               );

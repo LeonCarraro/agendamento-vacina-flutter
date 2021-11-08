@@ -7,13 +7,15 @@ class GroupCard extends StatelessWidget {
   final String description;
   final bool extraLine;
   final StatefulWidget nextPage;
+  final Function validation;
 
   const GroupCard({
     Key key,
     @required this.title,
     @required this.description,
     @required this.extraLine,
-    @required this.nextPage
+    this.nextPage,
+    this.validation
   }) : super(key: key);
 
   @override
@@ -77,7 +79,11 @@ class GroupCard extends StatelessWidget {
               size: 18,
             ),
             onPressed: () => {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => nextPage))
+              if (nextPage != null) {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => nextPage))
+              } else {
+                validation()
+              }
             },
           )
         ],

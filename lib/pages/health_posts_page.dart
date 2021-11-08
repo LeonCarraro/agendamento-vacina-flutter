@@ -50,6 +50,7 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
               Container(
                 child: TextFormField(
                   onChanged: (String value) => {
+                    // TODO: Implementar filtro
                     print('pesquisou por ' + value)
                   },
                   decoration: AppTheme().textInputSearchDecoration('Pesquisar'),
