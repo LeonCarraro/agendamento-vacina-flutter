@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/pages/health_posts_page.dart';
-import 'package:agendamento_vacina/pages/home_page.dart';
+import 'package:agendamento_vacina/pages/success_sheduling_page.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
@@ -29,7 +29,7 @@ class _SchedulePageState extends State<SchedulePage> {
         return json.decode(response);
       });
 
-    HomePage schedule(int scheduleId) {
+    SuccessSchedulingPage schedule(int scheduleId) {
       /*try {
         final response = await http.post("http://192.168.100.8:8080/v1/api/login", body: loginModel.toJson(), headers: {
           "Accept": "application/json; charset=utf-8",
@@ -49,7 +49,7 @@ class _SchedulePageState extends State<SchedulePage> {
         });
       }*/
 
-      return HomePage();
+      return SuccessSchedulingPage();
     }
 
   @override

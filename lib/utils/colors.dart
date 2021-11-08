@@ -22,4 +22,6 @@ class AppColor{
   static Color setsColor = const Color(0xFF9999a9);
   static Color circuitsColor = const Color(0xFF2f2f51);
   static Color error = Colors.redAccent;
+  static Color defaultIcon = Colors.green;
+  static Color backgroundIconBox = Colors.greenAccent;
 }

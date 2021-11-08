@@ -64,9 +64,9 @@ class _HomePageState extends State<HomePage> {
               Text(
                 "Consultar meu agendamento",
                 style: TextStyle(
-                fontSize: 20,
-                color: AppColor.homePageTitle,
-                fontWeight: FontWeight.w700
+                  fontSize: 20,
+                  color: AppColor.homePageTitle,
+                  fontWeight: FontWeight.w700
                 ),
               ),
               SizedBox(height: 30,),
