@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:agendamento_vacina/pages/health_posts_page.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/pages/home_page.dart';
@@ -23,8 +23,12 @@ class GroupsPage extends StatefulWidget {
 class _GroupsPageState extends State<GroupsPage> {
   Future findGroups() async => 
       await Future.delayed(Duration(seconds: 1), () async {
-        String response = await rootBundle.loadString('json/group_data.json');
-        return json.decode(response);
+        final response = await http.get("http://192.168.100.8:8080/v1/api/age-groups", headers: {
+        "Accept": "application/json; charset=utf-8",
+        "Content-type":"application/json; charset=utf-8"
+      });
+
+        return json.decode(response.body);
       });
 
   @override

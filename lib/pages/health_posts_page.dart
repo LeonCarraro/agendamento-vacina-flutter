@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/theme.dart';
@@ -25,8 +26,12 @@ class HealthPostsPage extends StatefulWidget {
 class _HealthPostsPageState extends State<HealthPostsPage> {
   Future findHealthPosts() async => 
       await Future.delayed(Duration(seconds: 1), () async {
-        String response = await rootBundle.loadString('json/health_post_data.json');
-        return json.decode(response);
+        final response = await http.get("http://192.168.100.8:8080/v1/api/health-posts", headers: {
+        "Accept": "application/json; charset=utf-8",
+        "Content-type":"application/json; charset=utf-8"
+      });
+
+        return json.decode(response.body);
       });
 
   @override
@@ -75,7 +80,11 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
                               title: snapshot.data[index]["title"],
                               description: snapshot.data[index]["address"],
                               extraLine: true,
-                              nextPage: SchedulePage(cpf: widget.cpf, groupId: widget.groupId, healthPostId: snapshot.data[index]["id"],),
+                              nextPage: SchedulePage(
+                                cpf: widget.cpf, 
+                                groupId: widget.groupId, 
+                                healthPostId: snapshot.data[index]["id"], 
+                                healthPostAddress: snapshot.data[index]["address"],),
                             );
                           },
                         );

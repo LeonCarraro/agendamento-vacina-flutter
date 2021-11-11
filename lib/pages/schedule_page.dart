@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:agendamento_vacina/utils/colors.dart';
@@ -17,8 +16,9 @@ class SchedulePage extends StatefulWidget {
   final String cpf;
   final int groupId;
   final int healthPostId;
+  final String healthPostAddress;
 
-  SchedulePage({Key key, @required this.cpf, @required this.groupId, @required this.healthPostId}) : super(key: key);
+  SchedulePage({Key key, @required this.cpf, @required this.groupId, @required this.healthPostId, @required this.healthPostAddress}) : super(key: key);
 
   @override
   _SchedulePageState createState() => _SchedulePageState();
@@ -27,15 +27,19 @@ class SchedulePage extends StatefulWidget {
 class _SchedulePageState extends State<SchedulePage> {
   Future findSchedules() async => 
       await Future.delayed(Duration(seconds: 1), () async {
-        String response = await rootBundle.loadString('json/schedule_data.json');
-        return json.decode(response);
+        final response = await http.get("http://192.168.100.8:8080/v1/api/schedules", headers: {
+        "Accept": "application/json; charset=utf-8",
+        "Content-type":"application/json; charset=utf-8"
+      });
+
+        return json.decode(response.body);
       });
 
   void schedule(int scheduleId) async {
     final Schedule schedule = new Schedule(widget.cpf, widget.groupId, widget.healthPostId, scheduleId);
 
     try {
-      final response = await http.post("http://192.168.100.8:8080/v1/api/schedules", body: schedule.toJson(), headers: {
+      final response = await http.post("http://192.168.100.8:8080/v1/api/vaccines-application", body: schedule.toJson(), headers: {
         "Accept": "application/json; charset=utf-8",
         "Content-type":"application/json; charset=utf-8"
       });
@@ -119,7 +123,7 @@ class _SchedulePageState extends State<SchedulePage> {
                               Padding(padding: EdgeInsets.only(left: 10, right: 10)),
                               Flexible(
                                 child: Text(
-                                  "U.B.S Morro Azul \"Eliza Bulgarelli Buzetto\"",
+                                  widget.healthPostAddress,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 20,
