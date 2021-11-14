@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:agendamento_vacina/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +12,7 @@ import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/loading_spinner.dart' as CustomWidget;
 
 class SchedulePage extends StatefulWidget {
   final String cpf;
@@ -48,8 +50,8 @@ class _SchedulePageState extends State<SchedulePage> {
         setState(() {
           // TODO: Implementar tratamento de erro
         });
-      } else if (response.statusCode == 201 || response.statusCode == 404) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuccessSchedulingPage()));
+      } else if (response.statusCode == 201) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuccessSchedulingPage(vaccineApplicatonId: json.decode(response.body)['id'],)));
       }
     } catch (e) {
       setState(() {
@@ -57,6 +59,8 @@ class _SchedulePageState extends State<SchedulePage> {
       });
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,7 @@ class _SchedulePageState extends State<SchedulePage> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
+                padding: EdgeInsets.only(top: 25, left: 15, right: 15,),
                 child: Column(
                   children: [
                     SizedBox(height: 30,),
@@ -157,7 +161,7 @@ class _SchedulePageState extends State<SchedulePage> {
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (_, index) {
                                   return CustomWidget.GroupCard(
-                                    title: snapshot.data[index]["dayOfWeek"] + "  -  " + snapshot.data[index]["dayOfMonth"],
+                                    title: snapshot.data[index]["dayOfWeek"] + "  -  " + Utils.formatDate(snapshot.data[index]["dayOfMonth"]),
                                     description: snapshot.data[index]["schedule"],
                                     extraLine: false,
                                     validation: () => {
@@ -167,14 +171,7 @@ class _SchedulePageState extends State<SchedulePage> {
                                 },
                               );
                             } else {
-                              return Column(
-                                children: [
-                                  SizedBox(height: 50,),
-                                  Center(
-                                    child: CircularProgressIndicator()
-                                  )
-                                ]
-                              );
+                              return CustomWidget.LoadingSpinner();
                             }
                           }
                         ),

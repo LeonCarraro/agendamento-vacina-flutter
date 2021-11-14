@@ -26,7 +26,7 @@ class _SignupPageState extends State<SignupPage> {
       backgroundColor: AppColor.homePageBackground,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
+          padding: EdgeInsets.only(top: 25, left: 15, right: 15,),
           child: Column(
             children: [
               SizedBox(height: 30,),
@@ -144,7 +144,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   onPressed: () => {
                     // TODO: Corrigir cpf: null
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: null)))
+                    // Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: null)))
                   }
                 ),
               ),

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:agendamento_vacina/pages/health_posts_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +9,8 @@ import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
+import 'package:agendamento_vacina/widgets/loading_spinner.dart' as CustomWidget;
+import 'package:agendamento_vacina/pages/health_posts_page.dart';
 
 class GroupsPage extends StatefulWidget {
   final String cpf;
@@ -37,7 +38,7 @@ class _GroupsPageState extends State<GroupsPage> {
       backgroundColor: AppColor.homePageBackground,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
+          padding: EdgeInsets.only(top: 25, left: 15, right: 15,),
           child: Column(
             children: [
               SizedBox(height: 30,),
@@ -109,14 +110,7 @@ class _GroupsPageState extends State<GroupsPage> {
                           },
                         );
                       } else {
-                        return Column(
-                          children: [
-                            SizedBox(height: 50,),
-                            Center(
-                              child: CircularProgressIndicator()
-                            )
-                          ]
-                        );
+                        return CustomWidget.LoadingSpinner();
                       }
                     }
                   ),

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/theme.dart';
-import 'package:agendamento_vacina/pages/home_page.dart';
+import 'package:agendamento_vacina/pages/consult_scheduling_page.dart';
 
 class SuccessSchedulingPage extends StatefulWidget {
-  SuccessSchedulingPage({Key key}) : super(key: key);
+  final int vaccineApplicatonId;
+
+  SuccessSchedulingPage({Key key, @required this.vaccineApplicatonId}) : super(key: key);
 
   @override
   _SuccessSchedulingPageState createState() => _SuccessSchedulingPageState();
@@ -18,7 +20,7 @@ class _SuccessSchedulingPageState extends State<SuccessSchedulingPage> {
       backgroundColor: AppColor.homePageBackground,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
+          padding: EdgeInsets.only(top: 25, left: 15, right: 15,),
           child: Column(
             children: [
               Container(
@@ -79,7 +81,7 @@ class _SuccessSchedulingPageState extends State<SuccessSchedulingPage> {
                     ),
                   ),
                   onPressed: () => {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConsultSchedulingPage(vaccineApplicationId: widget.vaccineApplicatonId)))
                   }
                 ),
               ),

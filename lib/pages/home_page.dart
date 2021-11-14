@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColor.homePageBackground,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 25, left: 25, right: 25,),
+          padding: EdgeInsets.only(top: 25, left: 15, right: 15,),
           child: Column(
             children: [
               Container(
