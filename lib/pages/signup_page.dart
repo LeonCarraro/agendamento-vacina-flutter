@@ -7,7 +7,6 @@ import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/theme.dart';
 import 'package:agendamento_vacina/utils/regex.dart';
 import 'package:agendamento_vacina/pages/home_page.dart';
-import 'package:agendamento_vacina/pages/groups_page.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;

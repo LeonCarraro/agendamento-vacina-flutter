@@ -15,18 +15,32 @@ import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/loading_spinner.dart' as CustomWidget;
 
 class SchedulePage extends StatefulWidget {
-  final String cpf;
+  final int id;
   final int groupId;
+  final bool hasSchedule;
   final int healthPostId;
   final String healthPostAddress;
 
-  SchedulePage({Key key, @required this.cpf, @required this.groupId, @required this.healthPostId, @required this.healthPostAddress}) : super(key: key);
+  SchedulePage({
+    Key key, 
+    @required this.id, 
+    @required this.groupId,
+    @required this.healthPostId,
+    @required this.healthPostAddress, 
+    @required this.hasSchedule}) : super(key: key);
 
   @override
   _SchedulePageState createState() => _SchedulePageState();
 }
 
 class _SchedulePageState extends State<SchedulePage> {
+  Future future;
+
+  initState() {
+    super.initState();
+    future = findSchedules();
+  }
+
   Future findSchedules() async => 
       await Future.delayed(Duration(seconds: 1), () async {
         final response = await http.get("http://192.168.100.8:8080/v1/api/schedules", headers: {
@@ -38,7 +52,7 @@ class _SchedulePageState extends State<SchedulePage> {
       });
 
   void schedule(int scheduleId) async {
-    final Schedule schedule = new Schedule(widget.cpf, widget.groupId, widget.healthPostId, scheduleId);
+    final Schedule schedule = new Schedule(widget.id, widget.groupId, widget.healthPostId, scheduleId);
 
     try {
       final response = await http.post("http://192.168.100.8:8080/v1/api/vaccines-application", body: schedule.toJson(), headers: {
@@ -76,7 +90,8 @@ class _SchedulePageState extends State<SchedulePage> {
                   children: [
                     SizedBox(height: 30,),
                     CustomWidget.Back(title: "Voltar", onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HealthPostsPage(cpf: widget.cpf, groupId: widget.groupId,)))
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => 
+                        HealthPostsPage(id: widget.id, groupId: widget.groupId, hasSchedule: widget.hasSchedule,)))
                     }),
                     SizedBox(height: 30,),
                     CustomWidget.Step(title: "Passo 04 de 04"),
@@ -152,7 +167,7 @@ class _SchedulePageState extends State<SchedulePage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         FutureBuilder(
-                          future: findSchedules(),
+                          future: future,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return ListView.builder(

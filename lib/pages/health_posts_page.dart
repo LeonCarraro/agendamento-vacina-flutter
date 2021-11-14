@@ -15,16 +15,24 @@ import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/loading_spinner.dart' as CustomWidget;
 
 class HealthPostsPage extends StatefulWidget {
-  final String cpf;
+  final int id;
   final int groupId;
+  final bool hasSchedule;
 
-  HealthPostsPage({Key key, @required this.cpf, @required this.groupId}) : super(key: key);
+  HealthPostsPage({Key key, @required this.id, @required this.groupId, @required this.hasSchedule}) : super(key: key);
 
   @override
   _HealthPostsPageState createState() => _HealthPostsPageState();
 }
 
 class _HealthPostsPageState extends State<HealthPostsPage> {
+  Future future;
+
+  initState() {
+    super.initState();
+    future = findHealthPosts();
+  }
+
   Future findHealthPosts() async => 
       await Future.delayed(Duration(seconds: 1), () async {
         final response = await http.get("http://192.168.100.8:8080/v1/api/health-posts", headers: {
@@ -46,7 +54,7 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
             children: [
               SizedBox(height: 30,),
               CustomWidget.Back(title: "Voltar", onTap: () => {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: widget.cpf)))
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(id: widget.id, hasSchedule: widget.hasSchedule,)))
               }),
               SizedBox(height: 30,),
               CustomWidget.Step(title: "Passo 03 de 04"),
@@ -69,7 +77,7 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   FutureBuilder(
-                    future: findHealthPosts(),
+                    future: future,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -82,10 +90,11 @@ class _HealthPostsPageState extends State<HealthPostsPage> {
                               description: snapshot.data[index]["address"],
                               extraLine: true,
                               nextPage: SchedulePage(
-                                cpf: widget.cpf, 
+                                id: widget.id, 
                                 groupId: widget.groupId, 
                                 healthPostId: snapshot.data[index]["id"], 
-                                healthPostAddress: snapshot.data[index]["address"],),
+                                healthPostAddress: snapshot.data[index]["address"],
+                                hasSchedule: widget.hasSchedule,)
                             );
                           },
                         );

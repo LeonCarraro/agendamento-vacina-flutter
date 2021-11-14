@@ -24,16 +24,19 @@ class ConsultSchedulingPage extends StatefulWidget {
 }
 
 class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
+  int id;
   String name;
   String cpf;
   String healthPost;
   String address;
   String schedule;
 
+  Future future;
+
   @override
   void initState() {
     super.initState();
-    findById();
+    future = findById();
   }
 
   Future findById() async {
@@ -46,6 +49,7 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
       if (response.statusCode == 200) {
         setState(() {
           final dynamic responseObject = json.decode(response.body);
+          id = responseObject['user']['id'];
           name = responseObject['user']['name'];
           cpf = responseObject['user']['cpf'];
           healthPost = responseObject['healthPost']['title'];
@@ -79,13 +83,13 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
                       children: [
                         SizedBox(height: 30,),
                         CustomWidget.Back(title: "Voltar", onTap: () => {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: cpf,)))
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(id: id, hasSchedule: true,)))
                         }),
                     SizedBox(height: 30,),
                     CustomWidget.PageTitle(title: "Consultar informações do agendamento"),
                     SizedBox(height: 30,),
                     FutureBuilder(
-                      future: findById(),
+                      future: future,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Column(

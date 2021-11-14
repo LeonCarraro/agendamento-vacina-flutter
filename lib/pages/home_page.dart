@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
           errorMsg = jsonDecode(response.body)['message'];
         });
       } else if (response.statusCode == 200) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(cpf: jsonDecode(response.body)['cpf'])));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(
+          id: jsonDecode(response.body)['user']['id'],
+          hasSchedule: jsonDecode(response.body)['user']['hasSchedule'],)));
       }
     } catch (e) {
       setState(() {
