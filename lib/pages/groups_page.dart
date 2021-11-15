@@ -107,7 +107,7 @@ class _GroupsPageState extends State<GroupsPage> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        "Toque aqui para consultar ou agendar uma nova data!",
+                        "Toque aqui para consultar sua data e hora marcada!",
                         style: TextStyle(
                           fontSize: 20,
                           color: AppColor.homePageContainerTextSmall

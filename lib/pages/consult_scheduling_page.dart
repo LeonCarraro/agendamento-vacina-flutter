@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:brasil_fields/brasil_fields.dart';
+
 import 'package:agendamento_vacina/utils/colors.dart';
 import 'package:agendamento_vacina/utils/utils.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
@@ -111,6 +113,85 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
                               SizedBox(height: 8,),
                               CustomWidget.ScheduleInformation(title: "Horário", description: schedule),
                               SizedBox(height: 30,),
+                              GestureDetector(
+                                onTap: () => {
+                                  Alert(
+                                    context: context,
+                                    style: AlertStyle(
+                                      animationType: AnimationType.fromTop,
+                                      isCloseButton: false,
+                                      isOverlayTapDismiss: false,
+                                      animationDuration: Duration(milliseconds: 500),
+                                      backgroundColor: AppColor.homePageBackground,
+                                    ),
+                                    type: AlertType.warning,
+                                    title: "Cancelar agendamento?",
+                                    desc: "Você pode reagendar novamente a qualquer momento!",
+                                    buttons: [
+                                      DialogButton(
+                                        color: AppColor.gradientFirst,
+                                        child: Text(
+                                          "Continuar",
+                                          style: TextStyle(color: Colors.white, fontSize: 20),
+                                        ),
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                        },
+                                        width: 125,
+                                      ),
+                                      DialogButton(
+                                        color: AppColor.error,
+                                        child: Text(
+                                          "Cancelar",
+                                          style: TextStyle(color: Colors.white, fontSize: 20),
+                                        ),
+                                        onPressed: () => {
+                                          Navigator.pop(context),
+                                        },
+                                        width: 125,
+                                      ),
+                                    ],
+                                  ).show()
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        AppColor.gradientFirst.withOpacity(0.8),
+                                        AppColor.gradientSecond.withOpacity(0.9)
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15)
+                                    )
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Não poderá comparecer?",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppColor.homePageContainerTextSmall,
+                                          fontWeight: FontWeight.w300
+                                        ),
+                                      ),
+                                      SizedBox(height: 5,),
+                                      Text(
+                                        "Toque aqui para cancelar seu agendamento!",
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: AppColor.homePageContainerTextSmall
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           );
                         } else {
