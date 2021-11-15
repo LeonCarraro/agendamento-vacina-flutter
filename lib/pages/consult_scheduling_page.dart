@@ -30,6 +30,7 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
   String healthPost;
   String address;
   String schedule;
+  String ageGroup;
 
   Future future;
 
@@ -54,6 +55,7 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
           cpf = responseObject['user']['cpf'];
           healthPost = responseObject['healthPost']['title'];
           address = responseObject['healthPost']['address'];
+          ageGroup = responseObject['ageGroup']['title'];
           schedule = 
             Utils.formatDate(responseObject['schedule']['dayOfMonth']) + ' - ' + 
             responseObject['schedule']['schedule'] + ' (' + 
@@ -96,7 +98,12 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
                             children: [
                               CustomWidget.ScheduleInformation(title: "Nome", description: name),
                               SizedBox(height: 8,),
-                              CustomWidget.ScheduleInformation(title: "CPF", description: cpf == null ? "Obtendo informação..." : UtilBrasilFields.obterCpf(cpf)),
+                              CustomWidget.ScheduleInformation(
+                                title: "CPF", 
+                                description: cpf == null ? "Houve um problema ao obter o CPF" : UtilBrasilFields.obterCpf(cpf)
+                              ),
+                              SizedBox(height: 8,),
+                              CustomWidget.ScheduleInformation(title: "Grupo", description: ageGroup),
                               SizedBox(height: 8,),
                               CustomWidget.ScheduleInformation(title: "Local", description: healthPost),
                               SizedBox(height: 8,),

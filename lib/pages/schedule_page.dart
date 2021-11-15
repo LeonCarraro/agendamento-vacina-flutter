@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-import 'package:agendamento_vacina/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:agendamento_vacina/utils/colors.dart';
-import 'package:agendamento_vacina/pages/health_posts_page.dart';
-import 'package:agendamento_vacina/pages/success_sheduling_page.dart';
+import 'package:agendamento_vacina/utils/utils.dart';
 import 'package:agendamento_vacina/models/schedule.dart';
 import 'package:agendamento_vacina/widgets/back.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/step.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/page_title.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/group_card.dart' as CustomWidget;
 import 'package:agendamento_vacina/widgets/loading_spinner.dart' as CustomWidget;
+import 'package:agendamento_vacina/pages/health_posts_page.dart';
+import 'package:agendamento_vacina/pages/success_sheduling_page.dart';
 
 class SchedulePage extends StatefulWidget {
   final int id;
