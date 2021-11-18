@@ -64,7 +64,7 @@ class _SchedulePageState extends State<SchedulePage> {
         setState(() {
           // TODO: Implementar tratamento de erro
         });
-      } else if (response.statusCode == 201) {
+      } else if (response.statusCode == 201 || response.statusCode == 200) {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => SuccessSchedulingPage(vaccineApplicatonId: json.decode(response.body)['id'],)));
       }
     } catch (e) {

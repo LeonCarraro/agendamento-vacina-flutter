@@ -42,6 +42,21 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
     future = findById();
   }
 
+  void delete() async {
+    try {
+      final response = await http.delete("http://192.168.100.8:8080/v1/api/vaccines-application/" + widget.vaccineApplicationId.toString());
+
+      if (response.statusCode == 204) {
+        Navigator.pop(context);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => GroupsPage(id: id, hasSchedule: false,)));
+      }
+    } catch (e) {
+      setState(() {
+          // TODO: Implementar tratamento de erro
+      });
+    }
+  }
+
   Future findById() async {
     try {
       final response = await http.get("http://192.168.100.8:8080/v1/api/vaccines-application/" + widget.vaccineApplicationId.toString(), headers: {
@@ -131,11 +146,11 @@ class _ConsultSchedulingPageState extends State<ConsultSchedulingPage> {
                                       DialogButton(
                                         color: AppColor.gradientFirst,
                                         child: Text(
-                                          "Continuar",
+                                          "Cancelar",
                                           style: TextStyle(color: Colors.white, fontSize: 20),
                                         ),
                                         onPressed: () => {
-                                          Navigator.pop(context),
+                                          delete()
                                         },
                                         width: 125,
                                       ),
